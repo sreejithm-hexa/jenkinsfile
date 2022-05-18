@@ -1,4 +1,5 @@
-pipelineJob("database/$JOB") {
+def jobname = "database/$JOB"
+pipelineJob(jobname) {
   	environmentVariables {
       env("APPLICATION_REPOSITORY", "$REPO")
     }
