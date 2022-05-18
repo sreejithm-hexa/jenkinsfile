@@ -1,0 +1,66 @@
+def server = Artifactory.server 'artifactory'
+def jobname = "$JOB"
+def repo = "$REPO"
+pipeline {
+    agent any
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '20')
+    }
+    triggers {
+        pollSCM 'H/3 * * * *'
+    }
+    stages {
+        stage('CHECKOUT') {
+            steps {
+                checkout changelog: false, poll: false, scm: [
+                    $class: 'GitSCM', 
+                    branches: [[name: '*/master']], 
+                    extensions: [], 
+                    userRemoteConfigs: [[url: repo]]]
+            }
+
+        }
+        stage('BUILD') {
+            steps {
+                withGradle {
+                    sh './gradlew clean build'
+                }
+            }
+        }
+        stage('ARTIFACTORY CONFIGURATION') {
+            steps {
+                rtGradleDeployer (
+                    id: 'deployer-artifactory',
+                    serverId: 'artifactory',
+                    repo: 'libs-release-local'
+                )
+                rtGradleResolver (
+                    id: 'resolver-artifactory',
+                    serverId: 'artifactory',
+                    repo: 'libs-release-local'
+                )
+
+            }
+        }
+        
+        stage('DEPLOY TO ARTIFACT') {
+            steps {
+                rtGradleRun (
+                    usesPlugin: true,
+                    useWrapper: true,
+                    rootDir: '.',
+                    tasks: 'artifactoryPublish',
+                    deployerId: 'deployer-artifactory',
+                    resolverId: 'resolver-artifactory'
+                )
+
+                rtPublishBuildInfo(serverId: "artifactory")
+            }
+        }
+        stage('ARCHIVE ARTIFACT') {
+            steps {
+                archiveArtifacts '**/build/libs/alfresco-pipe-1.0.0.jar'
+            }
+        }
+    }
+}
