@@ -1,6 +1,6 @@
 pipelineJob("$JOB") {
   	environmentVariables {
-      env("REPO", "$APPLICATION_REPOSITORY")
+      env("APPLICATION_REPOSITORY", "$REPO")
     }
     definition {
         cps {
