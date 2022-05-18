@@ -1,6 +1,3 @@
-def server = Artifactory.server 'artifactory'
-def jobname = "$JOB"
-def repo = "$REPO"
 pipeline {
     agent any
     options {
@@ -16,7 +13,7 @@ pipeline {
                     $class: 'GitSCM', 
                     branches: [[name: '*/master']], 
                     extensions: [], 
-                    userRemoteConfigs: [[url: repo]]]
+                    userRemoteConfigs: [[url: $repo]]]
             }
 
         }
