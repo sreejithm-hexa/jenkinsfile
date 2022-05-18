@@ -1,4 +1,4 @@
-pipelineJob("$JOB") {
+pipelineJob("database/$JOB") {
   	environmentVariables {
       env("APPLICATION_REPOSITORY", "$REPO")
     }
