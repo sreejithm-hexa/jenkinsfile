@@ -1,4 +1,3 @@
-def url = "$REPO"
 pipeline {
     agent any
     options {
@@ -14,7 +13,7 @@ pipeline {
                     $class: 'GitSCM', 
                     branches: [[name: '*/master']], 
                     extensions: [], 
-                    userRemoteConfigs: [[url: $url]]]
+                    userRemoteConfigs: [[url: repo]]]
             }
 
         }
