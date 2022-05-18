@@ -13,7 +13,7 @@ pipeline {
                     $class: 'GitSCM', 
                     branches: [[name: '*/master']], 
                     extensions: [], 
-                    userRemoteConfigs: [[url: $repo]]]
+                    userRemoteConfigs: [[url: "$REPO"]]]
             }
 
         }
