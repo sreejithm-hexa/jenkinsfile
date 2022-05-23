@@ -1,0 +1,235 @@
+{
+  "version" : "1.0.1",
+  "name" : "Projects :: Alfresco :: Alfresco - Foundation - TRUNK - Gradle War Assembler",
+  "number" : "25",
+  "buildAgent" : {
+    "name" : "Gradle",
+    "version" : "7.3.3"
+  },
+  "agent" : {
+    "name" : "Jenkins",
+    "version" : "2.332.1"
+  },
+  "started" : "2022-04-12T15:32:49.308+0200",
+  "durationMillis" : 38987,
+  "principal" : "PVSPJENK12$",
+  "artifactoryPrincipal" : "hudson",
+  "artifactoryPluginVersion" : "3.15.4",
+  "url" : "http://ci.pvgroup.intranet/job/Projects/job/Alfresco/job/Alfresco%20-%20Foundation%20-%20TRUNK%20-%20Gradle%20War%20Assembler/25/",
+  "vcs" : [ {
+    "revision" : "186074",
+    "message" : "",
+    "branch" : "",
+    "url" : "http://svnrepos.vivium.intranet/repos/java/Scanning_Archiving/Alfresco-war-assembler/pv-foundation-gradle/trunk-foundation"
+  } ],
+  "licenseControl" : {
+    "runChecks" : false,
+    "includePublishedArtifacts" : false,
+    "autoDiscover" : false,
+    "scopesList" : "",
+    "licenseViolationsRecipientsList" : ""
+  },
+  "modules" : [ {
+    "type" : "gradle",
+    "id" : "be.pvgroup.alfresco.war:foundation:1.12.1",
+    "repository" : "libs-release-local",
+    "artifacts" : [ {
+      "type" : "war",
+      "sha1" : "916387bb91a50070113c665e918c4abb322f190c",
+      "md5" : "973796ca609c7170dfae676d975ea8a2",
+      "name" : "foundation-1.12.1.war",
+      "path" : "be/pvgroup/alfresco/war/foundation/1.12.1/foundation-1.12.1.war"
+    }, {
+      "type" : "pom",
+      "sha1" : "186cc0cc5990d823dad829ef6ca5726d50684c68",
+      "md5" : "9aae9a6abca8d7380fbecb1aba3df328",
+      "name" : "foundation-1.12.1.pom",
+      "path" : "be/pvgroup/alfresco/war/foundation/1.12.1/foundation-1.12.1.pom"
+    } ],
+    "excludedArtifacts" : [ ],
+    "dependencies" : [ {
+      "type" : "amp",
+      "sha1" : "ce3b471a5abcd9b445211f289f2891f50a1319a4",
+      "md5" : "36b6e415b299f79f11d7d5561e48815f",
+      "id" : "org.alfresco:alfresco-share-services:6.1.1",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "ff9bf256fc49b9f99ce18232e27783baf12a16f1",
+      "md5" : "22be948bceef9c22eea2c58febb12460",
+      "id" : "be.pvgroup.alfresco:log4j_path:0.6",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "bbf9f5f03f49530e49533acfdec367183d5281df",
+      "md5" : "2a82857de05f9950b0cdedef0aa91e0a",
+      "id" : "eu.xenit.alfred.objectstorage:object-storage:3.1.2",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "2f60657d034c06b0b572dea35235bdbe844662fb",
+      "md5" : "95ce85be774d6e5f603f947ecda3959c",
+      "id" : "eu.xenit:alfresco-dynamic-extensions-repo-61:2.1.0",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "0bcdbb4db6fbddf1c6ac54aca8cc3cfd2344165e",
+      "md5" : "cbac42c7c8f6eef3b061e585539f88b3",
+      "id" : "eu.xenit.tools.system:xenit-system-webscripts-amp:1.0.2",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "f9a94859b3b99dd660ea0127597b5db163d6c4c5",
+      "md5" : "0914da6bfc3511d2f204dba79439878d",
+      "id" : "eu.xenit.alfred.edge:alfresco-feature-flags-repo:1.0.1",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "145a6e91d3b52ea945f74ed363a307287b28dc3a",
+      "md5" : "ad017b2bab045a7f7de8bb8dd02809e6",
+      "id" : "be.pvgroup.alfresco.metadata:metadata-library-alfresco-adapter:2.7.1-SNAPSHOT",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "a04caea9b4da9629ac155485311f41cbfb2d997f",
+      "md5" : "58b7f23705109001ff8fbedc699e197f",
+      "id" : "eu.xenit.apix:apix-impl-61-amp:3.0.0",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "66e45bc74464de5437454af69caf21e544edb73f",
+      "md5" : "d76bfbd71938b7e8d7116354353d512a",
+      "id" : "be.pvgroup.alfresco:pvgroup-model:1.12.0-SNAPSHOT",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "e8a282f4e45ab038600797100d3d9158a59432af",
+      "md5" : "f36f58432ed86e573e733fd2ab11c35b",
+      "id" : "be.pvgroup.ecm:ecm-api-foundation:2.10.1-SNAPSHOT",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "bfe92bffb2a78fe269d9f4306ce856907eb1b0c2",
+      "md5" : "5677338b5357bc696e22ba992f229b7f",
+      "id" : "be.pvgroup.alfresco:alfresco-policies:1.9.5-SNAPSHOT",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "fe88f8baadba3d28f36eb198421bfb0d30057d50",
+      "md5" : "19854aded9f3426f6e026e92b67d34e7",
+      "id" : "eu.xenit.alfred.edge:alfresco-jwt-auth-repo:1.3.2",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "1c0b496308d559459dbeeee544a11d5dad52a4c5",
+      "md5" : "6a2e1e9334048aa7bdeb6969dc3fee87",
+      "id" : "eu.xenit:inflow-backend-de:3.2.6",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "4cab95fb6aaa64700dc8709025dd696f2d83a814",
+      "md5" : "6448d72b130a26c0b3e3b58a5d9c96ba",
+      "id" : "be.pvgroup.alfresco:common-webscripts:1.0.16-SNAPSHOT",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "amp",
+      "sha1" : "5c6e2c38327dd9876c7e37b708499e1dba3169ef",
+      "md5" : "e21377772e655fa1393d44213c0434fc",
+      "id" : "eu.xenit.alfresco:alfresco-hotfix-MNT-20557:1.0.2",
+      "scopes" : [ "alfrescoAmp" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "f989c9a98ca872d65ee2326a17f47d27b85744dd",
+      "md5" : "90992fb0a23a7edf9003b33658f9f4f8",
+      "id" : "eu.xenit.alfred.telemetry:alfred-telemetry-platform:0.5.2",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "1599a53a65b1078775dbad0cc74c7fc935b816c6",
+      "md5" : "52d996b50d6957b9bbbc1ed122172015",
+      "id" : "io.micrometer:micrometer-registry-prometheus:1.0.6",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "ccb052257d1c18e42d5fc94cc93a1d00fdfdcc6b",
+      "md5" : "856846eb933b66e92ad5d91a7dfd2a1f",
+      "id" : "io.github.mweirauch:micrometer-jvm-extras:0.1.2",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "eu.xenit.alfred.telemetry:alfred-telemetry-platform:0.5.2", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "50299bc8a34c251d62311bbb1a297f3942a82e42",
+      "md5" : "880cf216de648b4a8cce9e07da49afde",
+      "id" : "io.micrometer:micrometer-core:1.0.6",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "eu.xenit.alfred.telemetry:alfred-telemetry-platform:0.5.2", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "38a77ebaec6c890485ce2bc8b8a2bf557fd326fd",
+      "md5" : "27ce0c9e46ab71eb59947320eee55ccd",
+      "id" : "io.prometheus:simpleclient_common:0.4.0",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "io.micrometer:micrometer-registry-prometheus:1.0.6", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "9e1ac84eed220281841b75e72fb9de5a297fbf04",
+      "md5" : "f7fd592029a3f8cc3b3c2488d43c6d8d",
+      "id" : "org.hdrhistogram:HdrHistogram:2.1.10",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "io.micrometer:micrometer-core:1.0.6", "eu.xenit.alfred.telemetry:alfred-telemetry-platform:0.5.2", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "769c0b82cb2421c8256300e907298a9410a2a3d3",
+      "md5" : "2ad12e1ef7614cecfb0483fa9ac6da73",
+      "id" : "org.latencyutils:LatencyUtils:2.0.3",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "io.micrometer:micrometer-core:1.0.6", "eu.xenit.alfred.telemetry:alfred-telemetry-platform:0.5.2", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "99c293bbf9461587b2179273b6fdc349582a1021",
+      "md5" : "5989de098aa8867d5dfa40fe2ce452b1",
+      "id" : "io.prometheus:simpleclient:0.4.0",
+      "scopes" : [ "alfrescoSM" ],
+      "requestedBy" : [ [ "io.prometheus:simpleclient_common:0.4.0", "io.micrometer:micrometer-registry-prometheus:1.0.6", "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "war",
+      "sha1" : "40ea2067678d4ef2a5860aee5a64f2b4f2eef2a9",
+      "md5" : "3f26772c4b17044c94b7a8446dcd921b",
+      "id" : "org.alfresco:content-services:6.1.1.7",
+      "scopes" : [ "baseAlfrescoWar" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    }, {
+      "type" : "jar",
+      "sha1" : "6ee96ab5c51a89524648677e08bb159cfb15a3e4",
+      "md5" : "36aa0f258c3f95f73da1d741d9828896",
+      "id" : "be.pvgroup.move2alf:inflow-parsers:1.6.2-SNAPSHOT",
+      "scopes" : [ "inflowParsers" ],
+      "requestedBy" : [ [ "be.pvgroup.alfresco.war:foundation:1.12.1" ] ]
+    } ]
+  } ],
+  "governance" : {
+    "blackDuckProperties" : {
+      "runChecks" : false,
+      "includePublishedArtifacts" : false,
+      "autoCreateMissingComponentRequests" : false,
+      "autoDiscardStaleComponentRequests" : false
+    }
+  }
+}
