@@ -1,63 +1,93 @@
 pipeline {
     agent any
     options {
-        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '20')
+        buildDiscarder logRotator(artifactDaysToKeepStr: '',
+        artifactNumToKeepStr: '',
+        daysToKeepStr: '',
+        numToKeepStr: '20')
     }
     triggers {
-        pollSCM 'H/3 * * * *'
+         pollSCM 'H/3 * * * *'
     }
     stages {
-        stage('CHECKOUT') {
-            steps {
-                checkout changelog: false, poll: false, scm: [
-                    $class: 'GitSCM', 
-                    branches: [[name: '*/master']], 
-                    extensions: [], 
-                    userRemoteConfigs: [[url: "$APPLICATION_REPOSITORY"]]]
-            }
-
+        stage('CODE CHECKOUT') {
+			steps {
+				checkout scm: [$class: 'SubversionSCM',
+				filterChangelog: false,
+				ignoreDirPropChanges: false,
+				locations: [[cancelProcessOnExternalsFail: false,
+				credentialsId: '01c7d5da-ad5b-4dbb-a717-a5d737ea95bb',
+				depthOption: 'infinity',
+				ignoreExternalsOption: false,
+				local: '.',
+				remote: '${APPLICATION_REPOSITORY}']],
+				quietOperation: false,
+				workspaceUpdater: [$class: 'UpdateUpdater']]
+				
+				checkout poll: false, scm: [$class: 'GitSCM', 
+				branches: [[name: '*/ansible']], 
+				extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ansible']], 
+				userRemoteConfigs: [[credentialsId: 'Sreejith-github',
+				url: 'https://github.com/pv-project-devops/track-configuration.git']]]
+			}
         }
-        stage('BUILD') {
-            steps {
-                withGradle {
-                    sh './gradlew clean build'
-                }
-            }
-        }
-        stage('ARTIFACTORY CONFIGURATION') {
-            steps {
-                rtGradleDeployer (
-                    id: 'deployer-artifactory',
+		stage('BUILD AND UPLOAD ARTIFACTS') {
+		    steps {
+		        withGradle {
+    		        bat './gradlew clean build'
+    		    }
+    		    rtGradleResolver (
+    		        id: 'resolver-artifactory',
+                    serverId: 'artifactory'
+    		    )
+    		    rtGradleDeployer (
+    		        id: 'deployer-artifactory',
                     serverId: 'artifactory',
-                    repo: 'libs-release-local'
-                )
-                rtGradleResolver (
-                    id: 'resolver-artifactory',
-                    serverId: 'artifactory',
-                    repo: 'libs-release-local'
-                )
-
-            }
+                    releaseRepo: 'libs-release-local',
+                    snapshotRepo: 'libs-snapshot-local'
+    		    )
+    		    rtGradleRun (
+    		        usesPlugin: true,
+    		        useWrapper: true,
+    		        tasks: 'artifactoryPublish',
+    		        resolverId: 'resolver-artifactory',
+                    deployerId: 'deployer-artifactory'
+    		    )
+		    }
+		}
+    }
+    post {
+        failure {
+            step([$class: 'Mailer', notifyEveryUnstableBuild: true, recipients: 'sreejith.m@pvgroup.be', sendToIndividuals: true])
         }
-        
-        stage('DEPLOY TO ARTIFACT') {
-            steps {
-                rtGradleRun (
-                    usesPlugin: true,
-                    useWrapper: true,
-                    rootDir: '.',
-                    tasks: 'artifactoryPublish',
-                    deployerId: 'deployer-artifactory',
-                    resolverId: 'resolver-artifactory'
-                )
-
-                rtPublishBuildInfo(serverId: "artifactory")
-            }
-        }
-        stage('ARCHIVE ARTIFACT') {
-            steps {
-                archiveArtifacts '**/build/libs/alfresco-pipe-1.0.0.jar'
-            }
+        success {
+		    archiveArtifacts '**/build/dist/*.war'
+		    script {
+                downstream_param()
+		    }
         }
     }
+}
+
+def downstream_param() {
+	def f = readJSON file: "build/build-info.json"
+	def path = f.modules[0].id
+	def groupId = path.split(":")[0].replace(".","/")
+	def application = path.split(":")[1]
+	def snapshot = path.split(":")[2]
+	def repo = f.modules[0].repository
+	def artifactPath = f.modules.artifacts[0].path[0]
+	if(repo == "libs-snapshot-local") {
+		String artifactory =  "http://artifacts.pvgroup.intranet/artifactory/${repo}/${groupId}/${application}/${snapshot}/maven-metadata.xml"
+		bat "py ansible/alfresco.py ${artifactory}"
+		def props = readProperties file: 'URL'
+		env.URL_PATH = props.URL
+		echo "${URL_PATH}"
+	}
+	else {
+		env.URL_PATH = "http://artifacts.pvgroup.intranet/artifactory/${repo}/${artifactPath}"
+	}
+	build job: 'Projects/DevOps_Hexaware/Foundation/Deploy-alfresco-pipeline', 
+	parameters: [string(name: 'ARTIFACTORY_URL', value: "${URL_PATH}")], 
+    wait: false
 }
