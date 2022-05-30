@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'ARTIFACTORY_URL', defaultValue: '', description: 'Artifactory url of war file to deploy')
+        string(name: 'ENVIRONMENT', defaultValue: 'sbox', description: 'The environment which war is deployed')
+        string(name: 'TENANT', defaultValue: 'life', description: 'The tenant of the application')
+    }
+    stages {
+        stage('PROCEED DEPLOYMENT') {
+            options {
+                timeout(time: 10, unit: 'SECONDS') 
+            }
+            steps {
+                input(message: "Continue Deployment?")
+            }
+ 
+        }
+        stage('COPY STATE VARIABLES') {
+            steps {
+                ansibleTower extraVars: '''
+                artifactory_url: >-
+                    ${ARTIFACTORY_URL}
+                env: ${ENVIRONMENT}
+                tenant: ${TENANT}''', 
+                inventory: 'alfresco sbox', 
+                jobTemplate: 'alfresco-update-artifact', 
+                jobType: 'run', 
+                throwExceptionWhenFail: true, 
+                towerCredentialsId: 'AWX-HEXAWARE', 
+                towerLogLevel: 'full', 
+                towerServer: 'AWX'
+            }
+        }
+        stage('DEPLOY WAR') {
+            steps {
+                ansibleTower inventory: 'alfresco sbox', 
+                jobTemplate: 'alfresco-provision', 
+                jobType: 'run', 
+                throwExceptionWhenFail: true, 
+                towerCredentialsId: 'AWX-HEXAWARE', 
+                towerLogLevel: 'full', 
+                towerServer: 'AWX'
+            }
+        }
+    }
+}
