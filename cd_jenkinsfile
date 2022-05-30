@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    parameters {
-        string(name: 'ARTIFACTORY_URL', defaultValue: '', description: 'Artifactory url of war file to deploy')
-        string(name: 'ENVIRONMENT', defaultValue: 'sbox', description: 'The environment which war is deployed')
-        string(name: 'TENANT', defaultValue: 'life', description: 'The tenant of the application')
-    }
     stages {
         stage('PROCEED DEPLOYMENT') {
             options {
