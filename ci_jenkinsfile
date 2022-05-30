@@ -87,7 +87,7 @@ def downstream_param() {
 	else {
 		env.URL_PATH = "http://artifacts.pvgroup.intranet/artifactory/${repo}/${artifactPath}"
 	}
-	build job: 'Projects/DevOps_Hexaware/Foundation/Deploy-alfresco-pipeline', 
+	build job: '${DOWNSTREAM_JOB}', 
 	parameters: [string(name: 'ARTIFACTORY_URL', value: "${URL_PATH}")], 
     wait: false
 }
